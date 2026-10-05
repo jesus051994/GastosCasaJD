@@ -3,45 +3,167 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#1F3D2B">
+<meta name="theme-color" content="#1f3d2b">
 <title>GastosCasaJD</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<header class="top"><div class="top-inner">
-<h1>GastosCasaJD</h1>
-<p class="tagline">Un registro simple de en qué se va la plata cada mes.</p>
-<span class="sync-status" id="sync-status">☁️ Conectando...</span>
-</div></header>
+<header class="top">
+  <div class="top-inner">
+    <div>
+      <h1>GastosCasaJD</h1>
+      <p class="tagline">Ingresos, gastos, pendientes y lista de compras.</p>
+    </div>
+    <span class="sync-status" id="sync-status">☁️ Conectando...</span>
+  </div>
+</header>
+
+<nav class="main-nav">
+  <button class="nav-btn active" data-view="dashboard">📊 Resumen</button>
+  <button class="nav-btn" data-view="movements">💸 Movimientos</button>
+  <button class="nav-btn" data-view="pending">⏳ Pendientes</button>
+  <button class="nav-btn" data-view="shopping">🛒 Lista de compras</button>
+</nav>
+
 <main class="layout">
-<section class="panel form-panel">
-<h2>Agregar gasto</h2>
-<form id="expense-form">
-<div class="field"><label for="desc">Descripción</label><input type="text" id="desc" placeholder="Ej: Supermercado, luz, internet..." required></div>
-<div class="field-row">
-<div class="field"><label for="amount">Monto (₡)</label><input type="number" id="amount" min="0" step="0.01" placeholder="0.00" required></div>
-<div class="field"><label for="date">Fecha</label><input type="date" id="date" required></div>
-</div>
-<div class="field"><label for="category">Categoría</label>
-<select id="category" required>
-<option>Alimentación</option><option>Servicios</option><option>Transporte</option><option>Salud</option><option>Hogar</option><option>Entretenimiento</option><option>Educación</option><option>Otros</option>
-</select></div>
-<button type="submit" class="btn-primary">Agregar gasto</button>
-</form></section>
 
-<section class="panel summary-panel">
-<h2>Resumen del mes</h2>
-<div class="month-picker"><button id="prev-month" class="btn-icon">←</button><span id="current-month-label">—</span><button id="next-month" class="btn-icon">→</button></div>
-<div class="total-box"><span class="total-label">Total del mes</span><span class="total-amount" id="month-total">₡0</span></div>
-<ul class="category-breakdown" id="category-breakdown"></ul>
+<section class="view active" id="view-dashboard">
+  <div class="two-col">
+    <section class="panel form-panel">
+      <h2>Agregar movimiento</h2>
+      <form id="movement-form">
+        <div class="type-switch">
+          <label class="type-option active" id="expense-option">
+            <input type="radio" name="type" value="gasto" checked><span>💸 Gasto</span>
+          </label>
+          <label class="type-option" id="income-option">
+            <input type="radio" name="type" value="ingreso"><span>💰 Ingreso</span>
+          </label>
+        </div>
+        <div class="field">
+          <label for="desc">Descripción</label>
+          <input type="text" id="desc" placeholder="Ej: Recibo de luz, salario, gasolina..." required>
+        </div>
+        <div class="field-row">
+          <div class="field"><label for="amount">Monto (₡)</label><input type="number" id="amount" min="0" step="0.01" required></div>
+          <div class="field"><label for="date">Fecha</label><input type="date" id="date" required></div>
+        </div>
+        <div id="expense-fields">
+          <div class="field">
+            <label for="group">Grupo</label>
+            <select id="group"></select>
+          </div>
+          <div class="field">
+            <label for="category">Categoría</label>
+            <select id="category"></select>
+          </div>
+        </div>
+        <div id="income-fields" class="hidden">
+          <div class="field">
+            <label for="income-category">Tipo de ingreso</label>
+            <select id="income-category">
+              <option>Salario</option><option>Trabajo extra</option><option>Negocio</option>
+              <option>Reembolso</option><option>Venta</option><option>Otro ingreso</option>
+            </select>
+          </div>
+        </div>
+        <button type="submit" class="btn-primary" id="save-button">Agregar gasto</button>
+      </form>
+    </section>
+
+    <section class="panel summary-panel">
+      <h2>Resumen del mes</h2>
+      <div class="month-picker">
+        <button id="prev-month" class="btn-icon">←</button>
+        <span id="current-month-label">—</span>
+        <button id="next-month" class="btn-icon">→</button>
+      </div>
+      <div class="summary-grid">
+        <div class="metric income"><span>Ingresos</span><strong id="month-income">₡0</strong></div>
+        <div class="metric expense"><span>Gastos</span><strong id="month-expenses">₡0</strong></div>
+        <div class="metric balance"><span>Disponible</span><strong id="month-balance">₡0</strong></div>
+      </div>
+      <h3 class="section-title">Gastos por grupo</h3>
+      <div class="group-grid" id="group-summary"></div>
+      <div class="mini-note">También puedes revisar el detalle por categoría en Movimientos.</div>
+    </section>
+  </div>
 </section>
 
-<section class="panel list-panel">
-<div class="list-panel-header"><h2>Movimientos</h2><input type="text" id="search" placeholder="Buscar por descripción..."></div>
-<table class="expense-table"><thead><tr><th>Fecha</th><th>Descripción</th><th>Categoría</th><th class="num">Monto</th><th></th></tr></thead><tbody id="expense-rows"></tbody></table>
-<p class="empty-state" id="empty-state">Todavía no hay gastos registrados este mes. Agrega el primero con el formulario.</p>
+<section class="view" id="view-movements">
+  <section class="panel list-panel">
+    <div class="list-panel-header">
+      <div><h2>Movimientos</h2><p class="hint">Ingresos y gastos registrados.</p></div>
+      <input type="text" id="search" placeholder="Buscar...">
+    </div>
+    <div class="month-picker compact">
+      <button id="prev-month-2" class="btn-icon">←</button>
+      <span id="current-month-label-2">—</span>
+      <button id="next-month-2" class="btn-icon">→</button>
+    </div>
+    <div class="table-wrap">
+      <table class="data-table">
+        <thead><tr><th>Fecha</th><th>Tipo</th><th>Descripción</th><th>Grupo</th><th>Categoría</th><th class="num">Monto</th><th></th></tr></thead>
+        <tbody id="expense-rows"></tbody>
+      </table>
+    </div>
+    <p class="empty-state" id="empty-state">No hay movimientos este mes.</p>
+  </section>
 </section>
+
+<section class="view" id="view-pending">
+  <div class="two-col">
+    <section class="panel">
+      <h2>⏳ Agregar pendiente</h2>
+      <p class="hint big-hint">Registra un gasto que sabes que tendrás que pagar, pero todavía no llega la fecha o todavía no quieres registrarlo como gasto real.</p>
+      <form id="pending-form">
+        <div class="field"><label for="pending-desc">¿Qué falta pagar?</label><input id="pending-desc" placeholder="Ej: Recibo de agua, seguro del carro..." required></div>
+        <div class="field-row">
+          <div class="field"><label for="pending-amount">Monto estimado (₡)</label><input id="pending-amount" type="number" min="0" step="0.01" placeholder="Opcional"></div>
+          <div class="field"><label for="pending-date">Fecha de pago</label><input id="pending-date" type="date"></div>
+        </div>
+        <div class="field"><label for="pending-group">Grupo</label><select id="pending-group"></select></div>
+        <div class="field"><label for="pending-category">Categoría</label><select id="pending-category"></select></div>
+        <button class="btn-primary" type="submit">Agregar pendiente</button>
+      </form>
+    </section>
+    <section class="panel">
+      <h2>📋 Mis pendientes</h2>
+      <div id="pending-list" class="card-list"></div>
+      <p class="empty-state" id="pending-empty">No tienes gastos pendientes.</p>
+    </section>
+  </div>
+</section>
+
+<section class="view" id="view-shopping">
+  <div class="two-col">
+    <section class="panel">
+      <h2>🛒 Agregar a compras</h2>
+      <form id="shopping-form">
+        <div class="field"><label for="shopping-product">Producto</label><input id="shopping-product" placeholder="Ej: arroz, huevos, jabón..." required></div>
+        <div class="field-row">
+          <div class="field"><label for="shopping-qty">Cantidad</label><input id="shopping-qty" placeholder="Ej: 2 kg, 3 unidades"></div>
+          <div class="field"><label for="shopping-category">Categoría</label>
+            <select id="shopping-category">
+              <option>Alimentos</option><option>Bebidas</option><option>Limpieza</option><option>Higiene personal</option>
+              <option>Hogar</option><option>Mascotas</option><option>Farmacia</option><option>Otros</option>
+            </select>
+          </div>
+        </div>
+        <div class="field"><label for="shopping-note">Nota (opcional)</label><input id="shopping-note" placeholder="Marca, tamaño, detalle..."></div>
+        <button class="btn-primary" type="submit">Agregar a la lista</button>
+      </form>
+    </section>
+    <section class="panel">
+      <div class="list-panel-header"><div><h2>🛍️ Lista de compras</h2><p class="hint">Marca lo que ya compraste o elimínalo.</p></div><button class="btn-secondary" id="clear-bought">Eliminar comprados</button></div>
+      <div id="shopping-list" class="shopping-list"></div>
+      <p class="empty-state" id="shopping-empty">Tu lista está vacía.</p>
+    </section>
+  </div>
+</section>
+
 </main>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="script.js"></script>
-</body></html>
+</body>
+</html>
