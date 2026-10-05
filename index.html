@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GastosCasaJD</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header class="top">
+    <div class="top-inner">
+      <h1>GastosCasaJD</h1>
+      <p class="tagline">Un registro simple de en qué se va la plata cada mes.</p>
+    </div>
+  </header>
+
+  <main class="layout">
+
+    <section class="panel form-panel">
+      <h2>Agregar gasto</h2>
+      <form id="expense-form">
+        <div class="field">
+          <label for="desc">Descripción</label>
+          <input type="text" id="desc" placeholder="Ej: Supermercado, luz, internet..." required>
+        </div>
+
+        <div class="field-row">
+          <div class="field">
+            <label for="amount">Monto (₡)</label>
+            <input type="number" id="amount" min="0" step="0.01" placeholder="0.00" required>
+          </div>
+          <div class="field">
+            <label for="date">Fecha</label>
+            <input type="date" id="date" required>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="category">Categoría</label>
+          <select id="category" required>
+            <option value="Alimentación">Alimentación</option>
+            <option value="Servicios">Servicios (luz, agua, internet)</option>
+            <option value="Transporte">Transporte</option>
+            <option value="Salud">Salud</option>
+            <option value="Hogar">Hogar y mantenimiento</option>
+            <option value="Entretenimiento">Entretenimiento</option>
+            <option value="Educación">Educación</option>
+            <option value="Otros">Otros</option>
+          </select>
+        </div>
+
+        <button type="submit" class="btn-primary">Agregar gasto</button>
+      </form>
+    </section>
+
+    <section class="panel summary-panel">
+      <h2>Resumen del mes</h2>
+
+      <div class="month-picker">
+        <button id="prev-month" class="btn-icon" aria-label="Mes anterior">←</button>
+        <span id="current-month-label">—</span>
+        <button id="next-month" class="btn-icon" aria-label="Mes siguiente">→</button>
+      </div>
+
+      <div class="total-box">
+        <span class="total-label">Total del mes</span>
+        <span class="total-amount" id="month-total">₡0</span>
+      </div>
+
+      <ul class="category-breakdown" id="category-breakdown">
+        <!-- se llena por JS -->
+      </ul>
+    </section>
+
+    <section class="panel list-panel">
+      <div class="list-panel-header">
+        <h2>Movimientos</h2>
+        <input type="text" id="search" placeholder="Buscar por descripción...">
+      </div>
+
+      <table class="expense-table">
+        <thead>
+          <tr>
+            <th>Fecha</th>
+            <th>Descripción</th>
+            <th>Categoría</th>
+            <th class="num">Monto</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody id="expense-rows">
+          <!-- se llena por JS -->
+        </tbody>
+      </table>
+
+      <p class="empty-state" id="empty-state">Todavía no hay gastos registrados este mes. Agrega el primero con el formulario de la izquierda.</p>
+    </section>
+
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
