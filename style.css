@@ -283,3 +283,5 @@ input:focus, select:focus, button:focus-visible {
 @media (prefers-reduced-motion: reduce) {
   * { transition: none !important; }
 }
+
+.sync-status{display:inline-block;margin-top:.75rem;padding:.25rem .55rem;border:1px solid rgba(255,255,255,.35);border-radius:999px;font-size:.78rem}.sync-status.offline{background:rgba(166,69,58,.25)}.btn-primary:disabled{opacity:.65;cursor:wait}
