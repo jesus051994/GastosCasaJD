@@ -136,6 +136,7 @@ document.getElementById('pending-list').addEventListener('click',async e=>{
 });
 
 async function addShopping(e){e.preventDefault();const producto=document.getElementById('shopping-product').value.trim();if(!producto)return;status('☁️ Guardando compra...');const {error}=await db.from('compras').insert({producto,cantidad:document.getElementById('shopping-qty').value.trim(),categoria:document.getElementById('shopping-category').value,nota:document.getElementById('shopping-note').value.trim(),comprado:false});if(error){status('⚠️ No se pudo guardar',false);alert('No se pudo guardar la compra. Ejecuta primero el SQL.');return}e.target.reset();await loadAll()}
+document.getElementById('shopping-form').addEventListener('submit',addShopping);
 document.getElementById('shopping-list').addEventListener('change',async e=>{if(!e.target.classList.contains('buy-check'))return;await db.from('compras').update({comprado:e.target.checked}).eq('id',e.target.dataset.id);await loadAll()});
 document.getElementById('shopping-list').addEventListener('click',async e=>{const b=e.target.closest('.shopping-delete');if(!b)return;await db.from('compras').delete().eq('id',b.dataset.id);await loadAll()});
 document.getElementById('clear-bought').addEventListener('click',async()=>{if(!confirm('¿Eliminar todos los productos marcados como comprados?'))return;await db.from('compras').delete().eq('comprado',true);await loadAll()});
