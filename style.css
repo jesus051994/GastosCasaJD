@@ -141,3 +141,81 @@ button:focus-visible { outline: 3px solid #d9b65d; outline-offset: 2px; }
   .month-picker span { min-width: 0; flex: 1; }
 }
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition: none !important; } }
+
+
+
+/* Ajustes de presentación para listas de pendientes y compras.
+   Se conservan los estilos y funciones existentes. */
+.card-list,
+.shopping-list {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 12px;
+}
+
+.card-list > *,
+.shopping-list > * {
+  min-width: 0;
+  max-width: 100%;
+}
+
+/* Los elementos generados por JavaScript se organizan en bloques legibles. */
+.card-list > * {
+  padding: 14px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: #fffefa;
+  box-shadow: 0 2px 7px #3b33200a;
+  overflow-wrap: anywhere;
+  line-height: 1.55;
+}
+
+.shopping-list > * {
+  padding: 12px 14px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: #fffefa;
+  overflow-wrap: anywhere;
+}
+
+/* Evita que los botones dentro de las tarjetas se peguen al texto. */
+.card-list button,
+.shopping-list button {
+  margin: 6px 6px 0 0;
+  min-height: 36px;
+  padding: 8px 12px;
+  border-radius: 999px;
+  white-space: normal;
+  line-height: 1.25;
+}
+
+/* Contenido textual de tarjetas: permite saltos de línea en pantallas estrechas. */
+.card-list > * *,
+.shopping-list > * * {
+  max-width: 100%;
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 600px) {
+  .card-list,
+  .shopping-list {
+    gap: 10px;
+  }
+
+  .card-list > *,
+  .shopping-list > * {
+    padding: 12px;
+    font-size: 0.9rem;
+  }
+
+  .card-list button,
+  .shopping-list button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin: 8px 6px 0 0;
+    min-height: 38px;
+    font-size: 0.82rem;
+  }
+}
+
