@@ -219,3 +219,52 @@ button:focus-visible { outline: 3px solid #d9b65d; outline-offset: 2px; }
   }
 }
 
+
+/* Corrección de casillas y productos en móvil */
+input[type="checkbox"] {
+  width: 22px;
+  min-width: 22px;
+  height: 22px;
+  min-height: 22px;
+  padding: 0;
+  margin: 0 8px 0 0;
+  flex: 0 0 22px;
+  accent-color: var(--green);
+  vertical-align: middle;
+}
+
+.shopping-list > *,
+.card-list > * {
+  width: 100%;
+  min-width: 0;
+  padding: 12px;
+  margin: 0;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: #fffefa;
+  overflow-wrap: anywhere;
+}
+
+.shopping-list button,
+.card-list button {
+  width: auto;
+  min-height: 34px;
+  padding: 7px 13px;
+  margin: 6px 6px 0 0;
+  border-radius: 999px;
+  font-size: 0.82rem;
+}
+
+@media (max-width: 600px) {
+  .shopping-list,
+  .card-list {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 10px;
+  }
+
+  .shopping-list > *,
+  .card-list > * {
+    padding: 12px;
+  }
+}
