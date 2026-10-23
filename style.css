@@ -177,3 +177,42 @@
     gap: 7px;
   }
 }
+
+/* Diferenciar ingresos y gastos */
+.data-table .income-amount {
+  color: #21834a;
+  font-weight: 700;
+}
+
+.data-table .expense-amount {
+  color: #b23b32;
+  font-weight: 600;
+}
+
+.data-table .income-pill {
+  color: #176b39;
+  background: #e2f5e8;
+  border: 1px solid #b8e2c5;
+  padding: 4px 8px;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.data-table .expense-pill {
+  color: #a3332c;
+  background: #fbe8e5;
+  border: 1px solid #f0c7c1;
+  padding: 4px 8px;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.data-table tr:has(.income-amount) {
+  background: #f0faf2;
+}
+
+.data-table tr:has(.income-amount):hover {
+  background: #e5f5e8;
+}
