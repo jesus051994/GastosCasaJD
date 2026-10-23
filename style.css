@@ -1,15 +1,15 @@
 :root {
-  --ledger-green: #7545EF;
-  --ledger-green-light: #5E35D5;
-  --paper: #F4F3FC;
-  --paper-line: #E4DDF8;
-  --ink: #191A35;
-  --ink-soft: #666B87;
-  --coin: #079FC5;
-  --coin-light: #E9E2FF;
-  --danger: #DF3158;
+  --ledger-green: #1F3D2B;
+  --ledger-green-light: #2F5540;
+  --paper: #FBF7EE;
+  --paper-line: #E4DCC8;
+  --ink: #2A2420;
+  --ink-soft: #6B6356;
+  --coin: #B5862B;
+  --coin-light: #F1E3C2;
+  --danger: #A6453A;
 
-  --radius: 16px;
+  --radius: 4px;
   font-size: 16px;
 }
 
@@ -17,9 +17,9 @@
 
 body {
   margin: 0;
-  background: #fff;
+  background: var(--paper);
   color: var(--ink);
-  font-family: Inter, 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, Arial, sans-serif;
+  font-family: 'Iowan Old Style', 'Palatino Linotype', Georgia, serif;
   line-height: 1.5;
 }
 
@@ -28,8 +28,8 @@ body {
 .top {
   background: var(--ledger-green);
   color: var(--paper);
-  padding: 2rem 1.5rem 2.2rem;
-  border-bottom: 0; background-image: linear-gradient(115deg, #7545EF, #D82B91 65%, #079FC5);
+  padding: 2.5rem 1.5rem 2rem;
+  border-bottom: 3px solid var(--coin);
 }
 
 .top-inner {
@@ -46,7 +46,7 @@ body {
 
 .tagline {
   margin: 0.4rem 0 0;
-  color: rgba(255,255,255,.86);
+  color: #CBD8CE;
   font-size: 0.98rem;
   font-style: italic;
 }
@@ -59,25 +59,24 @@ body {
   padding: 0 1.5rem;
   display: grid;
   grid-template-columns: 320px 1fr;
-  gap: 1.2rem;
+  gap: 1.5rem;
 }
 
 .panel {
   background: #fff;
   border: 1px solid var(--paper-line);
-  border-radius: 24px;
-  padding: 1.4rem;
-  box-shadow: 0 12px 32px rgba(58,48,115,.10);
-  background: rgba(255,255,255,.88);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  box-shadow: 0 2px 0 var(--paper-line);
 }
 
 .panel h2 {
   margin: 0 0 1.1rem;
   font-size: 1.05rem;
-  font-weight: 750;
+  font-weight: 600;
   color: var(--ledger-green);
   border-bottom: 1px solid var(--paper-line);
-  padding-bottom: 0.7rem;
+  padding-bottom: 0.6rem;
 }
 
 .form-panel { grid-row: span 2; }
@@ -107,35 +106,34 @@ input, select {
   width: 100%;
   padding: 0.55rem 0.6rem;
   border: 1px solid var(--paper-line);
-  border-radius: 12px;
-  background: #fff;
+  border-radius: var(--radius);
+  background: var(--paper);
   color: var(--ink);
   font-family: inherit;
   font-size: 0.95rem;
-  border-radius: 12px;
 }
 
 input:focus, select:focus, button:focus-visible {
-  outline: 2px solid #7545EF;
+  outline: 2px solid var(--coin);
   outline-offset: 1px;
 }
 
 .btn-primary {
   width: 100%;
   padding: 0.7rem;
-  background: linear-gradient(135deg, #7545EF, #079FC5);
+  background: var(--ledger-green);
   color: #fff;
   border: none;
-  border-radius: 14px;
+  border-radius: var(--radius);
   font-family: inherit;
   font-size: 0.95rem;
-  font-weight: 750;
+  font-weight: 600;
   cursor: pointer;
   margin-top: 0.3rem;
-  transition: filter 0.15s ease;
+  transition: background 0.15s ease;
 }
 
-.btn-primary:hover { filter: brightness(1.07); }
+.btn-primary:hover { background: var(--ledger-green-light); }
 
 /* ---------- Summary ---------- */
 
@@ -145,14 +143,14 @@ input:focus, select:focus, button:focus-visible {
   justify-content: center;
   gap: 1rem;
   margin-bottom: 1.2rem;
-  font-weight: 750;
+  font-weight: 600;
   color: var(--ledger-green);
 }
 
 .btn-icon {
-  background: #fff;
+  background: none;
   border: 1px solid var(--paper-line);
-  border-radius: 12px;
+  border-radius: var(--radius);
   width: 2rem;
   height: 2rem;
   cursor: pointer;
@@ -160,12 +158,12 @@ input:focus, select:focus, button:focus-visible {
   font-size: 1rem;
 }
 
-.btn-icon:hover { background: #EEE8FF; }
+.btn-icon:hover { background: var(--coin-light); }
 
 .total-box {
-  background: linear-gradient(135deg, #EEE8FF, #DDF7FC);
-  border: 1px solid #D9D0FF;
-  border-radius: 12px;
+  background: var(--coin-light);
+  border: 1px solid var(--coin);
+  border-radius: var(--radius);
   padding: 1rem;
   text-align: center;
   margin-bottom: 1.2rem;
@@ -181,7 +179,7 @@ input:focus, select:focus, button:focus-visible {
   display: block;
   font-size: 1.9rem;
   font-weight: 700;
-  color: #7545EF;
+  color: var(--coin);
 }
 
 .category-breakdown {
@@ -248,7 +246,7 @@ input:focus, select:focus, button:focus-visible {
   padding: 0.15rem 0.55rem;
   border-radius: 999px;
   font-size: 0.78rem;
-  background: #EEE8FF;
+  background: var(--coin-light);
   color: #7A5A17;
 }
 
@@ -284,38 +282,4 @@ input:focus, select:focus, button:focus-visible {
 
 @media (prefers-reduced-motion: reduce) {
   * { transition: none !important; }
-}
-
-
-/* Modernización visual de GastosCasaJD: solo CSS, sin cambiar datos ni lógica */
-.top h1 { font-weight: 850; letter-spacing: -.035em; }
-.panel h2 { letter-spacing: -.02em; }
-.layout { align-items: start; }
-input, select { min-height: 44px; }
-.btn-primary, .btn-icon, .delete-btn { -webkit-tap-highlight-color: transparent; }
-.btn-primary { box-shadow: 0 8px 22px rgba(117,69,239,.24); }
-.btn-icon { border-radius: 12px; transition: background .15s, transform .15s; }
-.btn-icon:hover { background: #EEE8FF; transform: translateY(-1px); }
-.total-box { border-radius: 18px; }
-.total-amount { font-size: 2rem; letter-spacing: -.03em; }
-.cat-pill { background: linear-gradient(135deg,#EEE8FF,#DDF7FC); color: #5E35D5; }
-.expense-table tbody tr:hover { background: #F8F6FF; }
-.delete-btn { border-radius: 8px; padding: .4rem .55rem; }
-.delete-btn:hover { background: #FDE8EE; text-decoration: none; }
-@media (max-width: 800px) {
-  .top { padding: 1.5rem 1rem 2rem; }
-  .top h1 { font-size: 1.75rem; }
-  .layout { padding: 0 .8rem; margin-top: -1rem; gap: .9rem; }
-  .panel { padding: 1rem; border-radius: 20px; }
-  .list-panel-header { align-items: stretch; flex-direction: column; }
-  #search { max-width: none; width: 100%; }
-  .expense-table { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; white-space: nowrap; }
-  .expense-table th, .expense-table td { padding: .7rem .55rem; }
-  .total-amount { font-size: 1.8rem; }
-}
-@media (max-width: 420px) {
-  .top h1 { font-size: 1.55rem; }
-  .tagline { font-size: .9rem; }
-  .panel h2 { font-size: 1rem; }
-  .field-row { gap: .55rem; }
 }
